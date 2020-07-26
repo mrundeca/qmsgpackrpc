@@ -1,14 +1,18 @@
-﻿#include "response.h"
+#include "response.h"
 
 #include <qmsgpack/msgpack.h>
 
-inline MsgPackRpc::Response::Response() :
-    msgid_(0)
+using MsgPackRpc::Response;
+
+inline Response::Response()
+    : Message(kResponse),
+      msgid_(0)
 {
     error_.setValue(nullptr);
+    result_.setValue(nullptr);
 }
 
-QByteArray MsgPackRpc::Response::pack() const
+QByteArray Response::pack() const
 {
     QVariantList list;
     list << type_ << msgid_ << error_;

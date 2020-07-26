@@ -1,4 +1,4 @@
-﻿#ifndef QMSGPACKRPC_RESPONSE_H
+#ifndef QMSGPACKRPC_RESPONSE_H
 #define QMSGPACKRPC_RESPONSE_H
 
 #include "message.h"
@@ -19,7 +19,6 @@ public:
     void unpack(const QByteArray &msg) override;
 
 private:
-    const quint8 type_ = kResponse;
     quint32 msgid_;
     QVariant error_;
     QVariant result_;

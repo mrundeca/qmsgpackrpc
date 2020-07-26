@@ -1,4 +1,4 @@
-﻿# Extract the qmake executable location
+# Extract the qmake executable location
 get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
 # Ask Qt5 where is sysroot
 execute_process(COMMAND ${QT5_QMAKE_EXECUTABLE} -query QT_SYSROOT
@@ -19,9 +19,18 @@ add_definitions(
     -DQT_TRANSLATIONS_DIR="${QT_TRANSLATIONS_DIR}")
 
 set(SOURCES
+    error.cpp
     request.cpp
     response.cpp
-    notification.cpp)
+    notification.cpp
+    abstractserver.cpp
+    servicesocket.cpp
+    service.cpp
+    server.cpp
+    tcpserver.cpp
+    pendingcall.cpp
+    abstractsocket.cpp
+    client.cpp)
 
 add_library(qmsgpackrpc SHARED ${SOURCES})
 
