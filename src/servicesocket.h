@@ -12,8 +12,10 @@ class ServiceSocket : public AbstractSocket
 public:
     ServiceSocket(Service *service, QIODevice *device, QObject *parent = nullptr);
 
+protected:
     void processRequest(const Request &request) override;
     void processNotification(const Notification &notification) override;
+    void processResponse(const Response &response) override;
 
 private:
     Service *service_;

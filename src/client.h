@@ -6,7 +6,6 @@
 #include <QString>
 #include <QVariantList>
 #include "abstractsocket.h"
-#include "response.h"
 #include "pendingcall.h"
 
 namespace MsgPackRpc {
@@ -19,6 +18,13 @@ public:
     Response call(const QString &method, const QVariantList &params);
     PendingCall *asyncCall(const QString &method, const QVariantList &params);
     void notify(const QString &method, const QVariantList &params);
+    void dispatch(const Notification &notification);
+    void dispatch(const Response &response);
+
+protected:
+    virtual void processRequest(const Request &request) override;
+    virtual void processNotification(const Notification &notification) override;
+    virtual void processResponse(const Response &response) override;
 
 private:
     QIODevice *device_;

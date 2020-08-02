@@ -12,6 +12,14 @@ inline Response::Response()
     result_.setValue(nullptr);
 }
 
+Response::Response(const QVariantList &content)
+    : Message(kResponse),
+      msgid_(content.at(1).toUInt()),
+      error_(content.at(2)),
+      result_(content.at(3))
+{
+}
+
 QByteArray Response::pack() const
 {
     QVariantList list;

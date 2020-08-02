@@ -7,6 +7,7 @@
 #include <QSharedPointer>
 #include "message.h"
 #include "notification.h"
+#include "response.h"
 #include "request.h"
 
 namespace MsgPackRpc {
@@ -17,10 +18,14 @@ class AbstractSocket : public QObject
 public:
     explicit AbstractSocket(QIODevice *device, QObject *parent = nullptr);
 
+signals:
+    void disconnected();
+
 protected:
     virtual void sendMessage(const Message &message);
-    virtual void processRequest(const Request &request);
-    virtual void processNotification(const Notification &notification);
+    virtual void processRequest(const Request &request) = 0;
+    virtual void processNotification(const Notification &notification) = 0;
+    virtual void processResponse(const Response &response) = 0;
 
 private slots:
     virtual void processIncomingData();

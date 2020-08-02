@@ -11,7 +11,8 @@ AbstractSocket::AbstractSocket(QIODevice *device, QObject *parent)
     : QObject(parent),
       device_(device)
 {
-
+    connect(device, &QIODevice::readyRead,
+            this, &AbstractSocket::processIncomingData);
 }
 
 void AbstractSocket::sendMessage(const Message &message)
@@ -55,20 +56,17 @@ void AbstractSocket::processIncomingData()
             break;
         }
 
+        case kResponse:
+        {
+            Response response(message_content);
+            processResponse(response);
+            break;
+        }
+
         default:
             break;
         }
 
         buffer_.remove(0, static_cast<int>(sizeof(message_len) + message_len));
     }
-}
-
-void AbstractSocket::processRequest(const Request &request)
-{
-    qDebug() << "Processing request " << request.method();
-}
-
-void AbstractSocket::processNotification(const Notification &notification)
-{
-    qDebug() << "Processing notification " << notification.method();
 }
