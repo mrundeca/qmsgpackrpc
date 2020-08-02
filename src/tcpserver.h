@@ -4,13 +4,13 @@
 
 #include <QList>
 #include <QTcpServer>
-#include "abstractserver.h"
+#include "server.h"
 #include "service.h"
 #include "servicesocket.h"
 
 namespace MsgPackRpc {
 
-class TcpServer : public QTcpServer, public AbstractServer
+class TcpServer : public QTcpServer, public Server
 {
     Q_OBJECT
 public:

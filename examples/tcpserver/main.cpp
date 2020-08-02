@@ -14,18 +14,12 @@ class TestService : public Service
 {
 public:
     int add(int a, int b);
-    QVariant add(const QVariant &a, const QVariant &b);
     Response dispatch(const Request &request) override;
 };
 
 int TestService::add(int a, int b)
 {
     return a + b;
-}
-
-QVariant TestService::add(const QVariant &a, const QVariant &b)
-{
-    return a.toInt() + b.toInt();
 }
 
 Response TestService::dispatch(const Request &request)
@@ -35,7 +29,7 @@ Response TestService::dispatch(const Request &request)
     QVariantList params = request.params();
 
     if (method == "add") {
-        QVariant result = add(params.at(0), params.at(1));
+        QVariant result = add(params.at(0).toInt(), params.at(1).toInt());
         QVariant error;
         error.setValue(nullptr);
         return Response(error, result, msgid);

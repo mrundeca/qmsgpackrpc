@@ -23,7 +23,6 @@ set(SOURCES
     request.cpp
     response.cpp
     notification.cpp
-    abstractserver.cpp
     servicesocket.cpp
     service.cpp
     server.cpp

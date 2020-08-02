@@ -1,21 +1,22 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <QObject>
 #include "service.h"
+#include "servicesocket.h"
 
-namespace MsgPackRpc{
+namespace MsgPackRpc {
 
-class Server : public QObject
+class Server
 {
-    Q_OBJECT
 public:
-    explicit Server(QObject *parent = nullptr);
+    Server();
+    virtual ~Server();
+
     void serve(Service *service);
 
-signals:
-
-public slots:
+protected:
+    Service *service_;
+    QList<ServiceSocket *> clients_;
 };
 
 } // namespace MsgPackRpc
