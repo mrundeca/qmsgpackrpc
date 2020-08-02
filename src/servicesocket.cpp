@@ -2,6 +2,7 @@
 #include <QtDebug>
 
 using MsgPackRpc::ServiceSocket;
+using MsgPackRpc::Response;
 
 ServiceSocket::ServiceSocket(MsgPackRpc::Service *service, QIODevice *device, QObject *parent)
     : AbstractSocket(device, parent),
@@ -12,7 +13,8 @@ ServiceSocket::ServiceSocket(MsgPackRpc::Service *service, QIODevice *device, QO
 void ServiceSocket::processRequest(const Request &request)
 {
     qDebug() << "Processing request " << request.method();
-    service_->dispatch(request);
+    Response response = service_->dispatch(request);
+    sendMessage(response);
 }
 
 void ServiceSocket::processNotification(const Notification &notification)

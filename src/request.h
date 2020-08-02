@@ -4,7 +4,6 @@
 #include "message.h"
 
 #include <QString>
-#include <QVariantList>
 
 namespace MsgPackRpc
 {
@@ -20,8 +19,7 @@ public:
     const QString &method() const { return method_; }
     const QVariantList &params() const { return params_; }
 
-    QByteArray pack() const override;
-    void unpack(const QByteArray &msg) override;
+    QVariantList toVariantList() const override;
 
 private:
     quint32 msgid_;

@@ -1,7 +1,5 @@
 #include "request.h"
 
-#include <qmsgpack/msgpack.h>
-
 using MsgPackRpc::Request;
 
 Request::Request(const QVariantList &content)
@@ -12,10 +10,10 @@ Request::Request(const QVariantList &content)
 {
 }
 
-QByteArray Request::pack() const
+QVariantList Request::toVariantList() const
 {
     QVariantList list;
     list << type_ << msgid_ << method_;
     list.insert(list.size(), params_);
-    return MsgPack::pack(list);
+    return list;
 }

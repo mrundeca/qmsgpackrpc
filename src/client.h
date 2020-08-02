@@ -18,8 +18,8 @@ public:
     Response call(const QString &method, const QVariantList &params);
     PendingCall *asyncCall(const QString &method, const QVariantList &params);
     void notify(const QString &method, const QVariantList &params);
-    void dispatch(const Notification &notification);
-    void dispatch(const Response &response);
+    virtual void dispatch(const Notification &notification) = 0;
+    virtual void dispatch(const Response &response) = 0;
 
 protected:
     virtual void processRequest(const Request &request) override;

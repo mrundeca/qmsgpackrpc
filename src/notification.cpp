@@ -10,10 +10,10 @@ Notification::Notification(const QVariantList &content)
 {
 }
 
-QByteArray Notification::pack() const
+QVariantList Notification::toVariantList() const
 {
     QVariantList list;
     list << type_ << method_;
     list.insert(list.size(), params_);
-    return MsgPack::pack(list);
+    return list;
 }

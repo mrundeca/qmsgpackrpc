@@ -2,6 +2,7 @@
 #define QMSGPACKRPC_MESSAGE_H
 
 #include <QByteArray>
+#include <QVariantList>
 
 namespace MsgPackRpc
 {
@@ -16,8 +17,7 @@ public:
     Message() : type_(kRequest) {}
     Message(quint8 type) : type_(type) {}
     virtual ~Message() {}
-    virtual QByteArray pack() const = 0;
-    virtual void unpack(const QByteArray &msg) = 0;
+    virtual QVariantList toVariantList() const = 0;
 
 protected:
     quint8 type_;

@@ -1,15 +1,20 @@
 #include "response.h"
 
-#include <qmsgpack/msgpack.h>
-
 using MsgPackRpc::Response;
 
-inline Response::Response()
+Response::Response()
     : Message(kResponse),
       msgid_(0)
 {
     error_.setValue(nullptr);
     result_.setValue(nullptr);
+}
+
+Response::Response(const QVariant &error, const QVariant &result, quint32 msgid)
+    : msgid_(msgid),
+      error_(error),
+      result_(result)
+{
 }
 
 Response::Response(const QVariantList &content)
@@ -20,10 +25,10 @@ Response::Response(const QVariantList &content)
 {
 }
 
-QByteArray Response::pack() const
+QVariantList Response::toVariantList() const
 {
     QVariantList list;
     list << type_ << msgid_ << error_;
     list.insert(list.size(), result_);
-    return MsgPack::pack(list);
+    return list;
 }

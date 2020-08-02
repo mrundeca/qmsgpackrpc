@@ -11,10 +11,6 @@ TcpServer::TcpServer(QObject *parent)
 
 TcpServer::~TcpServer()
 {
-    foreach (ServiceSocket *client, clients_) {
-        client->deleteLater();
-    }
-    clients_.clear();
 }
 
 void TcpServer::incomingConnection(qintptr socketDescriptor)

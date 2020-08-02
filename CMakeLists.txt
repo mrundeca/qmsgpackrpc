@@ -11,3 +11,4 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 find_package(Qt5 COMPONENTS Network REQUIRED)
 
 add_subdirectory(src)
+add_subdirectory(examples)

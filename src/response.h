@@ -4,7 +4,6 @@
 #include "message.h"
 
 #include <QString>
-#include <QVariantList>
 
 namespace MsgPackRpc
 {
@@ -18,8 +17,8 @@ public:
 
     quint32 msgid() const { return msgid_; }
     QVariant result() const { return result_; }
-    QByteArray pack() const override;
-    void unpack(const QByteArray &msg) override;
+
+    QVariantList toVariantList() const override;
 
 private:
     quint32 msgid_;

@@ -17,7 +17,7 @@ AbstractSocket::AbstractSocket(QIODevice *device, QObject *parent)
 
 void AbstractSocket::sendMessage(const Message &message)
 {
-    QByteArray message_data = message.pack();
+    QByteArray message_data = MsgPack::pack(message.toVariantList());
     QDataStream stream(device_);
     stream.writeBytes(message_data.constData(),
                       static_cast<uint>(message_data.size()));

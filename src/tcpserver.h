@@ -22,10 +22,6 @@ protected:
 
 private slots:
     void onClientDisconnected();
-
-private:
-    Service *service_;
-    QList<ServiceSocket *> clients_;
 };
 
 } // namespace MsgPackRpc

@@ -2,13 +2,16 @@
 #define ERROR_H
 
 #include <QString>
+#include <QVariantList>
 
 namespace MsgPackRpc {
 
 class Error
 {
 public:
-    Error();
+    Error(const QString &message = QString(), int code = 0);
+
+    QVariantList toVariantList() const;
 
 private:
     QString message_;

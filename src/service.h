@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "notification.h"
+#include "response.h"
 #include "request.h"
 
 namespace MsgPackRpc {
@@ -12,8 +13,8 @@ class Service : public QObject
     Q_OBJECT
 public:
     explicit Service(QObject *parent = nullptr);
-    void dispatch(const Request &request);
-    void dispatch(const Notification &notification);
+    virtual Response dispatch(const Request &request) = 0;
+    virtual void dispatch(const Notification &) {}
 
 signals:
 
