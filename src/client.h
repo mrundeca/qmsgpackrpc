@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QString>
 #include <QVariantList>
+#include <QVector>
 #include "abstractsocket.h"
 #include "pendingcall.h"
 
@@ -15,6 +16,7 @@ class Client : public AbstractSocket
     Q_OBJECT
 public:
     Client(QIODevice *device, QObject *parent = nullptr);
+    ~Client() override;
     PendingCall *call(const QString &method, const QVariantList &params);
     void notify(const QString &method, const QVariantList &params);
     virtual void dispatch(const Notification &notification);
@@ -33,7 +35,7 @@ private:
     QIODevice *device_;
     int timeout_;
     quint32 msgid_;
-    QList<PendingCall *> pending_calls_;
+    QVector<PendingCall *> pending_calls_;
 };
 
 } // namespace MsgPackRpc

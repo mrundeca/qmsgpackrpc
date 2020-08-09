@@ -14,6 +14,11 @@ Client::Client(QIODevice *device, QObject *parent)
 {
 }
 
+Client::~Client()
+{
+    qDeleteAll(pending_calls_);
+}
+
 PendingCall *Client::call(const QString &method, const QVariantList &params)
 {
     Request request(msgid_++, method, params);
@@ -75,9 +80,12 @@ void Client::processResponse(const Response &response)
 
 void Client::dispatch(const Response &response)
 {
-    foreach(PendingCall *pending_call, pending_calls_) {
+    for (int i = 0; i < pending_calls_.size(); i++) {
+        PendingCall *pending_call = pending_calls_[i];
         if (pending_call->request().msgid() == response.msgid()) {
             pending_call->finishRequest(response);
+            pending_calls_.removeAt(i);
+            break;
         }
     }
 }
