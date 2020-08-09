@@ -3,8 +3,6 @@
 
 #include <QObject>
 #include "message.h"
-#include "request.h"
-#include "response.h"
 
 namespace MsgPackRpc {
 
@@ -12,11 +10,11 @@ class PendingCall : public QObject
 {
     Q_OBJECT
 public:
-    explicit PendingCall(QObject *parent = nullptr);
+    explicit PendingCall(const Request &request, QObject *parent = nullptr);
 
-    const Message &request() const { return request_; }
-    const Message &response() const { return response_; }
-
+    const Request &request() const { return request_; }
+    const Response &response() const { return response_; }
+    void finishRequest(const Response &response);
     bool waitForFinished(int msecs = 30000);
 
 signals:

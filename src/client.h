@@ -15,19 +15,25 @@ class Client : public AbstractSocket
     Q_OBJECT
 public:
     Client(QIODevice *device, QObject *parent = nullptr);
-    Response call(const QString &method, const QVariantList &params);
-    PendingCall *asyncCall(const QString &method, const QVariantList &params);
+    PendingCall *call(const QString &method, const QVariantList &params);
     void notify(const QString &method, const QVariantList &params);
-    virtual void dispatch(const Notification &notification) = 0;
-    virtual void dispatch(const Response &response) = 0;
+    virtual void dispatch(const Notification &notification);
+    int timeout() const { return timeout_; }
+    void setTimeout(int timeout) { timeout_ = timeout; }
 
 protected:
-    virtual void processRequest(const Request &request) override;
-    virtual void processNotification(const Notification &notification) override;
-    virtual void processResponse(const Response &response) override;
+    virtual void processMessage(const QByteArray &message) override;
+    virtual void processNotification(const Notification &notification);
+    virtual void processResponse(const Response &response);
+
+private:
+    virtual void dispatch(const Response &response);
 
 private:
     QIODevice *device_;
+    int timeout_;
+    quint32 msgid_;
+    QList<PendingCall *> pending_calls_;
 };
 
 } // namespace MsgPackRpc

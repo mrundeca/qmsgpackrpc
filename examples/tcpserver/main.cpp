@@ -4,6 +4,7 @@
 #include <error.h>
 
 using MsgPackRpc::Error;
+using MsgPackRpc::NoMethodError;
 using MsgPackRpc::Notification;
 using MsgPackRpc::Response;
 using MsgPackRpc::Request;
@@ -32,13 +33,12 @@ Response TestService::dispatch(const Request &request)
         QVariant result = add(params.at(0).toInt(), params.at(1).toInt());
         QVariant error;
         error.setValue(nullptr);
-        return Response(error, result, msgid);
+        return Response(msgid, result);
     }
 
-    Error error("Method not found", -32601);
     QVariant result;
     result.setValue(nullptr);
-    return Response(error.toVariantList(), result, msgid);
+    return Response(msgid, result, NoMethodError());
 }
 
 int main(int argc, char *argv[])

@@ -13,9 +13,9 @@ public:
     ServiceSocket(Service *service, QIODevice *device, QObject *parent = nullptr);
 
 protected:
-    void processRequest(const Request &request) override;
-    void processNotification(const Notification &notification) override;
-    void processResponse(const Response &response) override;
+    void processMessage(const QByteArray &message) override;
+    virtual void processRequest(const Request &request);
+    virtual void processNotification(const Notification &notification);
 
 private:
     Service *service_;

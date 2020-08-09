@@ -2,9 +2,7 @@
 #define SERVICE_H
 
 #include <QObject>
-#include "notification.h"
-#include "response.h"
-#include "request.h"
+#include "message.h"
 
 namespace MsgPackRpc {
 

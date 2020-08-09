@@ -20,9 +20,7 @@ add_definitions(
 
 set(SOURCES
     error.cpp
-    request.cpp
-    response.cpp
-    notification.cpp
+    message.cpp
     servicesocket.cpp
     service.cpp
     server.cpp

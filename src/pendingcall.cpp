@@ -4,8 +4,16 @@
 
 using MsgPackRpc::PendingCall;
 
-PendingCall::PendingCall(QObject *parent) : QObject(parent)
+PendingCall::PendingCall(const MsgPackRpc::Request &request, QObject *parent)
+    : QObject(parent),
+      request_(request)
 {
+}
+
+void PendingCall::finishRequest(const Response &response)
+{
+    response_ = response;
+    emit finished();
 }
 
 bool PendingCall::waitForFinished(int msecs)
